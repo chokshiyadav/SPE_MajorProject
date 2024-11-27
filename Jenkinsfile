@@ -1,8 +1,10 @@
 pipeline{
     agent any
-    environment{
-        MONGO="mongodb+srv://charan03:030904@clusterecoverse.xxoya0d.mongodb.net/ecoverse"
-        JWT="a1cd158e2b34d47af6d0b446f59a326849f0dd8eb7ac51244f4ab4c1cb99552b9f856a8fb488f20fdbf0d489fc93b4d94fb71148a1bd24e2386a6c71e4d8a3cd"
+    environment{     
+
+        JWT_SECRET = SDNCN23423TN394UFKND
+        MONGO_URL = "mongodb+srv://charan03:030904@clusterecoverse.xxoya0d.mongodb.net/ecoverse"
+        jwt_token = dhfmharnca394020
     }
     stages{
         stage('Clone Git'){
