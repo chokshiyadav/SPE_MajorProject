@@ -27,7 +27,7 @@ pipeline{
         }
          stage('Build Backend Image') {
             steps {
-                sh 'docker build -t backend-image .'
+                sh 'docker build -t backend-image ./backend'
             }
         }
           stage('Push Images to DockerHub') {
