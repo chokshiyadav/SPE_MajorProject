@@ -7,8 +7,8 @@ pipeline{
     stages{
         stage('Clone Git'){
             steps{
-                git branch: 'chokshi',
-                url: 'https://github.com/charansrisai03/bookmyevent.git'
+                git branch: 'main',
+                url: 'https://github.com/chokshiyadav/SPE_MajorProject.git'
             }
         }
 //         stage('Testing'){
@@ -26,7 +26,7 @@ pipeline{
         }
          stage('Build Backend Image') {
             steps {
-                sh 'docker build -t backend-image ./server'
+                sh 'docker build -t backend-image .'
             }
         }
           stage('Push Images to DockerHub') {
