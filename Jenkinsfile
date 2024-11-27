@@ -32,11 +32,11 @@ pipeline{
           stage('Push Images to DockerHub') {
             steps {
 
-//                 withCredentials([usernamePassword(credentialsId: 'docker_HUb', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-//                     sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
-//                     sh 'docker tag frontend-image bansalc73/frontend-image:latest'
+                 withCredentials([usernamePassword(credentialsId: 'DockerHubCred', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                     sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
+                     sh 'docker tag frontend-image chokshi/frontend-image:latest'
                      sh 'docker push chokshi/frontend-image:latest'
-//                     sh 'docker tag backend-image bansalc73/backend-image:latest'
+                     sh 'docker tag backend-image chokshi/backend-image:latest'
                      sh 'docker push chokshi/backend-image:latest'
                 }
             }
