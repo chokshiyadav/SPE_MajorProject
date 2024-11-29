@@ -1,48 +1,75 @@
 ---
 - name: Deploying with Kubernetes
   hosts: all
+  connection: local
+  vars:
+    ansible_python_interpreter: /home/chokshi/venv/bin/python  # Path to your virtual environment's Python interpreter
+
   tasks:
 
-    - name: install pre-requisites
+    - name: Install pre-requisites
       pip:
         name:
           - openshift
           - pyyaml
           - kubernetes
+        executable: /home/chokshi/venv/bin/pip
+
+      tags:
+        - pre-reqs
 
     - name: Apply Secrets
       kubernetes.core.k8s:
         state: present
         definition: "{{ lookup('file', './k8/mern-backend-secret.yaml') | from_yaml }}"
+      become: true
+      tags:
+        - secrets
 
     - name: Create Frontend Deployment
       kubernetes.core.k8s:
         state: present
         definition: "{{ lookup('file', './k8/frontend-deployment.yaml') | from_yaml }}"
+      become: true
+      tags:
+        - frontend
 
     - name: Create Frontend Service
       kubernetes.core.k8s:
         state: present
         definition: "{{ lookup('file', './k8/frontend-service.yaml') | from_yaml }}"
-
+      become: true
+      tags:
+        - frontend
 
     - name: Create Backend Deployment
       kubernetes.core.k8s:
         state: present
         definition: "{{ lookup('file', './k8/backend-deployment.yaml') | from_yaml }}"
+      become: true
+      tags:
+        - backend
 
     - name: Create Backend Service
       kubernetes.core.k8s:
         state: present
         definition: "{{ lookup('file', './k8/backend-service.yaml') | from_yaml }}"
-
+      become: true
+      tags:
+        - backend
 
     - name: Create Config Map
       kubernetes.core.k8s:
         state: present
         definition: "{{ lookup('file', './k8/frontend-configmap.yaml') | from_yaml }}"
+      become: true
+      tags:
+        - configmap
 
     - name: Create Ingress
       kubernetes.core.k8s:
         state: present
         definition: "{{ lookup('file', './k8/mern-ingress.yaml') | from_yaml }}"
+      become: true
+      tags:
+        - ingress

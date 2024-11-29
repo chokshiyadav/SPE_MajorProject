@@ -10,14 +10,14 @@ spec:
     - host: localhost
       http:
         paths:
-          - path: "/"
+          - path: "/client"
             pathType: Prefix
             backend:
               service:
                 name: frontend-service
                 port:
                   number: 3000
-          - path: "/api"
+          - path: "/backend"
             pathType: Prefix
             backend:
               service:
