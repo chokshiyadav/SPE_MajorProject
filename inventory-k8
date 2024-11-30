@@ -1,2 +1,5 @@
-localhost ansible_user=chokshi ansible_ssh_pass=chandrika
-ansible_ssh_common_args = '-o StrictHostKeyChecking=no'
+[ansible_nodes]
+localhost ansible_user=chokshi ansible_python_interpreter=/usr/bin/python3
+
+[ansible_nodes:vars]
+ansible_connection=local
