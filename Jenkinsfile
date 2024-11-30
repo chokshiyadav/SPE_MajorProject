@@ -21,12 +21,18 @@ pipeline {
         // }
         stage('Build Frontend Image') {
             steps {
-                sh 'docker build -t frontend-image ./client'
+                dir('client'){
+                sh "npm install"
+                sh 'docker build -t frontend-image .'
+            }
             }
         }
         stage('Build Backend Image') {
             steps {
-                sh 'docker build -t backend-image ./backend'
+                dir('backend'){
+                sh "npm install"
+                sh 'docker build -t backend-image .'
+            }
             }
         }
         stage('Push Images to DockerHub') {
@@ -50,17 +56,9 @@ pipeline {
         stage('Ansible Deployment') {
             steps {
                 script {
-                    sh 'ansible-playbook -i inventory-k8 playbook-k8.yml'
+                    sh 'ansible-playbook -i inventory-k8 playbook-k8.yml -vvv'
                 }
             }
-        }
-    }
-    post {
-        success {
-            echo 'Deployment Successful!'
-        }
-        failure {
-            echo 'Deployment Failed!'
         }
     }
 }
