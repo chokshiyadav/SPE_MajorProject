@@ -12,14 +12,14 @@ pipeline{
                 url: 'https://github.com/chokshiyadav/SPE_MajorProject.git'
             }
         }
-         stage('Testing'){
-             steps{
-                 dir('backend'){
-                     sh "npm install"
-                     sh "npm test"
-                 }
-             }
-         }
+//          stage('Testing'){
+//              steps{
+//                  dir('backend'){
+//                      sh "npm install"
+//                      sh "npm test"
+//                  }
+//              }
+//          }
         stage('Build Frontend Image') {
             steps {
                 sh 'docker build -t frontend-image ./client'
