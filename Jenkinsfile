@@ -11,14 +11,6 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/chokshiyadav/SPE_MajorProject.git'
             }
         }
-        // stage('Testing'){
-        //     steps{
-        //         dir('backend'){
-        //             sh "npm install"
-        //             sh "npm test"
-        //         }
-        //     }
-        // }
         stage('Build Frontend Image') {
             steps {
                 dir('client'){
@@ -56,7 +48,7 @@ pipeline {
         stage('Ansible Deployment') {
             steps {
                 script {
-                    sh 'ansible-playbook -i inventory-k8 playbook-k8.yml -vvv'
+                    sh 'ansible-playbook -i inventory-k8 playbook-k8.yml'
                 }
             }
         }
